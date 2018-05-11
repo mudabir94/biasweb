@@ -74,9 +74,11 @@ class samsung_phone(models.Model):
     class Meta:
         verbose_name_plural="samsungphone"
 class sort_feature(models.Model):
+    f_id=models.IntegerField(null=True)
     feature=models.CharField(max_length=200,null=True)
     position=models.IntegerField(null=True)
     sh_hd=models.IntegerField(null=True)
+    roles=models.IntegerField(null=True)
 
     def __str__(self):
         return self.feature
@@ -84,9 +86,6 @@ class sort_feature(models.Model):
         verbose_name_plural="sort feature"
 class feature(models.Model):
     feature=models.CharField(max_length=200,null=True)
-    
-    
-
     def __str__(self):
         return self.feature
     class Meta:

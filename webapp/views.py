@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 from django.db import connection
 from django.db.models import Q
 import json
-
+role=0
 def ind(request):
    
     if request.is_ajax:
@@ -28,7 +28,7 @@ def ind(request):
             print ("test", value,k)
             
             with connection.cursor() as cursor:
-                cursor.execute("UPDATE webapp_sort_feature SET position="+str(count)+" WHERE feature='"+value+"'; ") 
+                cursor.execute("UPDATE webapp_sort_feature SET position="+str(count)+" WHERE feature='"+value+"' and roles="+str(role)+";") 
                 print("executed") 
             count=count+1
         # UPDATE [Table] SET [Position] = $i WHERE [EntityId] = $value 
@@ -56,7 +56,7 @@ def test(request):
             print ("val", value)
              
             with connection.cursor() as cursor:
-                cursor.execute("UPDATE webapp_sort_feature SET sh_hd="+"0"+" WHERE feature='"+value+"'; ") 
+                cursor.execute("UPDATE webapp_sort_feature SET sh_hd="+"0"+" WHERE feature='"+value+"' and roles="+str(role)+"; ") 
                 print("executed") 
             
         
@@ -83,7 +83,7 @@ def on(request):
             print ("val", value)
              
             with connection.cursor() as cursor:
-                cursor.execute("UPDATE webapp_sort_feature SET sh_hd="+"1"+" WHERE feature='"+value+"'; ") 
+                cursor.execute("UPDATE webapp_sort_feature SET sh_hd="+"1"+" WHERE feature='"+value+"' and roles="+str(role)+" ; ") 
                 print("executed") 
             
         
@@ -93,21 +93,68 @@ def on(request):
         #print ("test", d['color'])
         return render(request, 'webapp/test_list.html')
   
+    
+def globalFunc(request):
+   
+    if request.is_ajax:
+       # print("ajax",request.POST.get('data'))
+        ####print("PST",request.POST.get('d')) 
+        d = request.POST.get('d')
+       ### print('JSONLOADS',eval(d))
+        b = json.loads(d)
+
+        print("in func",b)
+        print(type(b))
+        
+        a=int(b)
+        print(int(b))
+        print(type(a))
+        global  role
+        role=a
+        
+       
+        
+
+        # UPDATE [Table] SET [Position] = $i WHERE [EntityId] = $value 
+            
+        #print ("test", d['color'])
+          
+        return render(request, 'webapp/index.html')
+
+        
+
         
     
 
 def index(request):
+    global  role
+    '''
+    feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
+    ft=sort_feature.objects.filter(Q(sh_hd = 0),roles=role).order_by('position')
+    colors=['black','white','gold']
+    size=['0','1','3','4','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','5','5.1','5.2','5.3','5.4','5.5','5.6','5.7','5.8','5.9','6','6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8','6.9','7']
+    color=['']
+    if role==1:
+       color=['Student']
+    elif role==2:
+        color=['Professor']
+    return render(request, 'webapp/test_list.html',{'feat':feat,'colors':colors,'color':color,'size':size,'ft':ft})
+    '''
     if request.user.is_authenticated:
-        
-        if request.user.is_staff:
-           print("in staff")
-           
-           feat=sort_feature.objects.filter(~Q(sh_hd = 0)).order_by('position')
-           ft=sort_feature.objects.filter(Q(sh_hd = 0)).order_by('position')
-           print(feat)
+                
+        if request.user.is_student:
+           global  role
+           role=1
+           feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
+           ft=sort_feature.objects.filter(Q(sh_hd = 0),roles=role).order_by('position')
            colors=['black','white','gold']
            size=['0','1','3','4','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','5','5.1','5.2','5.3','5.4','5.5','5.6','5.7','5.8','5.9','6','6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8','6.9','7']
-
+        elif request.user.is_prof:
+           role=2
+           feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
+           ft=sort_feature.objects.filter(Q(sh_hd = 0),roles=role).order_by('position')
+           colors=['black','white','gold']
+           size=['0','1','3','4','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','5','5.1','5.2','5.3','5.4','5.5','5.6','5.7','5.8','5.9','6','6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8','6.9','7']
            #return redirect('/admin')
         else:
             print("in mobile redirect")
@@ -119,7 +166,7 @@ def index(request):
 
 
     return render(request, 'webapp/test_list.html',{'feat':feat,'colors':colors,'size':size,'ft':ft})
-
+    
     
    
 
@@ -151,28 +198,48 @@ def signup(request):
     
 class filter(TemplateView):
     def get(self,request):
-        print("in filter")
-        mobiles=samsung_phone.objects.all()
-        m=samsung_phone.objects.all()
-        feat=sort_feature.objects.filter(~Q(sh_hd = 0)).order_by('position')
+     
+            print("in filter")
+            
+            print("global",role)
+            mobiles=samsung_phone.objects.all()
+            m=samsung_phone.objects.all()
+            feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
 
-        colors=['black','white','gold']
-        os=['android v8.0 oreo','android v7.1.1 (nougat)','android v4.4 (kitkat)','android v6.0 (marshmallow)',
-        'android v5.0.2 (lollipop)','android v5.1 (lollipop)','android v4.3 (jelly bean)']
-        size=['0','1','3','4','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','5','5.1','5.2','5.3','5.4','5.5','5.6','5.7','5.8','5.9','6','6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8','6.9','7']
-        cpu=['octa-core','quad-core']
-        back_cm=['16 MP','13 MP','8 MP','5.0 MP','3.7 MP','2 MP','1.9 MP','VGA']
-        battery=['3600 mAh','3300 mAh','3000 mAh','2600 mAh','2400 mAh','2350']
-        return render(request,'webapp/filter_test.html',{'mobiles':mobiles,'colors':colors,
-        'os':os,'size':size,'feat':feat,'cpu':cpu,'back_cm':back_cm,'battery':battery})
+            colors=['black','white','gold']
+            os=['android v8.0 oreo','android v7.1.1 (nougat)','android v4.4 (kitkat)','android v6.0 (marshmallow)',
+            'android v5.0.2 (lollipop)','android v5.1 (lollipop)','android v4.3 (jelly bean)']
+            size=['0','1','3','4','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','5','5.1','5.2','5.3','5.4','5.5','5.6','5.7','5.8','5.9','6','6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8','6.9','7']
+            cpu=['octa-core','quad-core']
+            back_cm=['16 MP','13 MP','8 MP','5.0 MP','3.7 MP','2 MP','1.9 MP','VGA']
+            battery=['3600 mAh','3300 mAh','3000 mAh','2600 mAh','2400 mAh','2350']
+            return render(request,'webapp/filter_test.html',{'mobiles':mobiles,'colors':colors,
+            'os':os,'size':size,'feat':feat,'cpu':cpu,'back_cm':back_cm,'battery':battery})
+    '''
+    if request.user.is_authenticated:        
+        if request.user.is_staff:
+            print("aa")
+           
+           #return redirect('/admin')
+        else:
+            print("s") 
+           
+    else:
+        print("in else authenticate failed")
+
+
+    return render(request, 'webapp/filter_list.html')
+    '''
     def post(self,request):
         # print("ssss",(request.POST['first_choice_value']))
         # print("ssss",form.cleaned_data['first_choice_value'])
         
         if request.method=="POST":
-            print(request.POST['first_choice_value'])
-            first_choice = request.POST['first_choice_value']
+        
             
+           
+
+            first_choice = request.POST['first_choice_value']
             first_choice2 = request.POST['first_choice2_value']
             second_choice=request.POST['second_choice_value']
             third_choice=request.POST['third_choice_value']

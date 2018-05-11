@@ -6,6 +6,9 @@ urlpatterns = [
     url(r'^test/',views.test, name='test'),
     url(r'^ind/',views.ind, name='ind'),
     url(r'^on/',views.on, name='on'),
+    url(r'^globalFunc/',views.globalFunc,name='gf'),
+    
+    url(r'^$',views.signup, name='signup'),
 
     url(r'^index/',views.index, name='index'),
     url(r'^signup/', views.signup, name='signup'), 

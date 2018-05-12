@@ -64,7 +64,7 @@ def test(request):
         # UPDATE [Table] SET [Position] = $i WHERE [EntityId] = $value 
             
         #print ("test", d['color'])
-        return render(request, 'webapp/test_list.html')
+        return render(request, 'webapp/admin_setup.html')
     
 def on(request):
    
@@ -91,7 +91,7 @@ def on(request):
         # UPDATE [Table] SET [Position] = $i WHERE [EntityId] = $value 
             
         #print ("test", d['color'])
-        return render(request, 'webapp/test_list.html')
+        return render(request, 'webapp/admin_setup.html')
   
     
 def globalFunc(request):
@@ -138,7 +138,7 @@ def index(request):
        color=['Student']
     elif role==2:
         color=['Professor']
-    return render(request, 'webapp/test_list.html',{'feat':feat,'colors':colors,'color':color,'size':size,'ft':ft})
+    return render(request, 'webapp/admin_setup.html',{'feat':feat,'colors':colors,'color':color,'size':size,'ft':ft})
     '''
     if request.user.is_authenticated:
                 
@@ -165,7 +165,7 @@ def index(request):
         return redirect('/mobileanl/mobile')  
 
 
-    return render(request, 'webapp/test_list.html',{'feat':feat,'colors':colors,'size':size,'ft':ft})
+    return render(request, 'webapp/admin_setup.html',{'feat':feat,'colors':colors,'size':size,'ft':ft})
     '''
     
    
@@ -198,7 +198,7 @@ def signup(request):
     
 class filter(TemplateView):
     def get(self,request):
-     
+        ''' 
             print("in filter")
             
             print("global",role)
@@ -215,21 +215,47 @@ class filter(TemplateView):
             battery=['3600 mAh','3300 mAh','3000 mAh','2600 mAh','2400 mAh','2350']
             return render(request,'webapp/filter_test.html',{'mobiles':mobiles,'colors':colors,
             'os':os,'size':size,'feat':feat,'cpu':cpu,'back_cm':back_cm,'battery':battery})
-    '''
-    if request.user.is_authenticated:        
-        if request.user.is_staff:
-            print("aa")
-           
-           #return redirect('/admin')
+        '''
+        if request.user.is_authenticated:
+                    
+            if request.user.is_student:
+                global  role
+                role=1
+                feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
+                ft=sort_feature.objects.filter(Q(sh_hd = 0),roles=role).order_by('position')
+                colors=['black','white','gold']
+                os=['android v8.0 oreo','android v7.1.1 (nougat)','android v4.4 (kitkat)','android v6.0 (marshmallow)',
+                    'android v5.0.2 (lollipop)','android v5.1 (lollipop)','android v4.3 (jelly bean)']
+                size=['0','1','3','4','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','5','5.1','5.2','5.3','5.4','5.5','5.6','5.7','5.8','5.9','6','6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8','6.9','7']
+                cpu=['octa-core','quad-core']
+                back_cm=['16 MP','13 MP','8 MP','5.0 MP','3.7 MP','2 MP','1.9 MP','VGA']
+                battery=['3600 mAh','3300 mAh','3000 mAh','2600 mAh','2400 mAh','2350']
+
+            
+            elif request.user.is_prof:
+                role=2
+                feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
+                ft=sort_feature.objects.filter(Q(sh_hd = 0),roles=role).order_by('position')
+                colors=['black','white','gold']
+                os=['android v8.0 oreo','android v7.1.1 (nougat)','android v4.4 (kitkat)','android v6.0 (marshmallow)',
+                    'android v5.0.2 (lollipop)','android v5.1 (lollipop)','android v4.3 (jelly bean)']
+                size=['0','1','3','4','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','5','5.1','5.2','5.3','5.4','5.5','5.6','5.7','5.8','5.9','6','6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8','6.9','7']
+                cpu=['octa-core','quad-core']
+                back_cm=['16 MP','13 MP','8 MP','5.0 MP','3.7 MP','2 MP','1.9 MP','VGA']
+                battery=['3600 mAh','3300 mAh','3000 mAh','2600 mAh','2400 mAh','2350']
+                #return redirect('/admin')
+            else:
+                print("in mobile redirect")
+                return redirect('/mobileanl/mobile')  
+            
         else:
-            print("s") 
-           
-    else:
-        print("in else authenticate failed")
+            print("in else authenticate failed")
+            return redirect('/mobileanl/mobile')  
 
 
-    return render(request, 'webapp/filter_list.html')
-    '''
+        return render(request,'webapp/filter_test.html',{'colors':colors,
+            'os':os,'size':size,'feat':feat,'cpu':cpu,'back_cm':back_cm,'battery':battery})
+    
     def post(self,request):
         # print("ssss",(request.POST['first_choice_value']))
         # print("ssss",form.cleaned_data['first_choice_value'])

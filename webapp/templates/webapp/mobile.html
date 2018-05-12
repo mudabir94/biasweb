@@ -15,9 +15,9 @@
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
              
-              <li class="active"><a href="{%url 'mobileview'%}">Home</a></li>
+              <li><a href="{%url 'mobileview'%}">Home</a></li>
               <li><a href="#" >About</a></li>
-              
+            
             </ul>
             <!--<ul class="nav navbar-nav navbar-right">
               <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
@@ -38,13 +38,19 @@
                         </li>
                         {% if  user.is_authenticated %}
                         <li>User: {{ user.get_username }}</li>
-                        <li><a href="{% url 'logout'%}?next={{request.path}}">Logout</a></li>   
+                        <li><a href="{% url 'signup'%}?next={{request.path}}">Logout</a></li>   
                         {% else %}
                         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
                         {% endif %}  
+                        {% if  user.is_superuser %}
+                        <li ><a href="{%url 'admin_setup'%}">Advance Search Setup</a></li>
+                        {% else %}
                         <li>
                             <a href="{% url 'filter'  %}">ADVANCED SEARCH</a>
                         </li>
+                        {%endif%}
+                        
+                       
                         <li>
                             <a href="#">SAMSUNG</a>
                         </li>

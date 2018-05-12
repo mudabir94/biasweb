@@ -34,7 +34,7 @@ def ind(request):
         # UPDATE [Table] SET [Position] = $i WHERE [EntityId] = $value 
         
         #print ("test", d['color'])
-        return render(request, 'webapp/index.html')
+        return render(request, 'webapp/admin_setup.html')
 
 
 
@@ -119,14 +119,14 @@ def globalFunc(request):
             
         #print ("test", d['color'])
           
-        return render(request, 'webapp/index.html')
+        return render(request, 'webapp/admin_setup.html')
 
         
 
         
     
 
-def index(request):
+def admin_setup(request):
     global  role
     
     feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
@@ -195,7 +195,24 @@ def signup(request):
         form = UserCreationForm()
      return render(request,'webapp/signup.html',{'num_visits':num_visits,'form':form})
 
-    
+class showFilter(TemplateView):
+    def get(self,request):
+        print("in filter")    
+        print("global",role)
+        mobiles=samsung_phone.objects.all()
+        m=samsung_phone.objects.all()
+        feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
+
+        colors=['black','white','gold']
+        os=['android v8.0 oreo','android v7.1.1 (nougat)','android v4.4 (kitkat)','android v6.0 (marshmallow)',
+        'android v5.0.2 (lollipop)','android v5.1 (lollipop)','android v4.3 (jelly bean)']
+        size=['0','1','3','4','4.1','4.2','4.3','4.4','4.5','4.6','4.7','4.8','4.9','5','5.1','5.2','5.3','5.4','5.5','5.6','5.7','5.8','5.9','6','6.1','6.2','6.3','6.4','6.5','6.6','6.7','6.8','6.9','7']
+        cpu=['octa-core','quad-core']
+        back_cm=['16 MP','13 MP','8 MP','5.0 MP','3.7 MP','2 MP','1.9 MP','VGA']
+        battery=['3600 mAh','3300 mAh','3000 mAh','2600 mAh','2400 mAh','2350']
+        return render(request,'webapp/filter_test.html',{'mobiles':mobiles,'colors':colors,
+        'os':os,'size':size,'feat':feat,'cpu':cpu,'back_cm':back_cm,'battery':battery})
+
 class filter(TemplateView):
     def get(self,request):
         ''' 
@@ -261,10 +278,6 @@ class filter(TemplateView):
         # print("ssss",form.cleaned_data['first_choice_value'])
         
         if request.method=="POST":
-        
-            
-           
-
             first_choice = request.POST['first_choice_value']
             first_choice2 = request.POST['first_choice2_value']
             second_choice=request.POST['second_choice_value']
@@ -274,10 +287,6 @@ class filter(TemplateView):
             fifth_choice=request.POST['fifth_choice_value']
             six_choice=request.POST['six_choice_value']
             seven_choice=request.POST['seven_choice_value']
-            
-
-             
-          
             if(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice!="" and fourth_choice!="" and  fourth_choice2!=""
                 and fifth_choice!="" and six_choice!="" and seven_choice!="" ):
                 mobiles=samsung_phone.objects.filter(price__range=(int(first_choice),int(first_choice2)),OS=third_choice,Colors__icontains=second_choice,
@@ -366,7 +375,7 @@ class blogview (TemplateView):
         if request.user.has_perm('webapp.add_signup_table'):
             return redirect('/admin')
         else:
-            return redirect('/mobileanl/index')
+            return redirect('/mobileanl/admin_setup')
         '''
         print("in fucn",request.GET)
         if  request.user.is_staff:

@@ -125,7 +125,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 AUTH_USER_MODEL = 'webapp.User'
 
-LOGIN_REDIRECT_URL = 'index'
+LOGIN_REDIRECT_URL = 'mobileview'
 
 LOGOUT_REDIRECT_URL = ''
 

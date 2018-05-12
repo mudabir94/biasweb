@@ -10,7 +10,7 @@ from django.shortcuts import render, redirect
 from django.db import connection
 from django.db.models import Q
 import json
-role=0
+role=1
 def ind(request):
    
     if request.is_ajax:
@@ -128,7 +128,7 @@ def globalFunc(request):
 
 def index(request):
     global  role
-    '''
+    
     feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
     ft=sort_feature.objects.filter(Q(sh_hd = 0),roles=role).order_by('position')
     colors=['black','white','gold']
@@ -166,7 +166,7 @@ def index(request):
 
 
     return render(request, 'webapp/test_list.html',{'feat':feat,'colors':colors,'size':size,'ft':ft})
-    
+    '''
     
    
 

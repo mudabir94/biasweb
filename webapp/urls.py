@@ -9,7 +9,7 @@ urlpatterns = [
     url(r'^globalFunc/',views.globalFunc,name='gf'),
     
     url(r'^$',views.signup, name='signup'),
-
+    
     url(r'^index/',views.index, name='index'),
     url(r'^signup/', views.signup, name='signup'), 
     url(r'^blog/', views.blogview.as_view(), name='blog'), 

@@ -21,7 +21,7 @@
               <li><a href="#">About</a></li>
                {% if  user.is_authenticated %}
                         <li>User: {{ user.get_username }}</li>
-                        <li><a href="{% url 'signup'%}?next={{request.path}}">Logout</a></li>   
+                        <li><a href="{% url 'logout'%}">Logout</a></li>   
                         {% else %}
                         <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
                         {% endif %}  
@@ -65,7 +65,6 @@
                                                         <option value=15000>15000</option> 
                                                         <option value=20000>20000</option> 
                                                 </select>
-                                            <input type="hidden" value="" id="first_choice_value" name="first_choice_value"/>
                                             </div>
                                         </div>
                                         <div class="col-md-2">
@@ -76,7 +75,7 @@
                                                         <option  value=50000>50000</option>
                                                         <option value=80000>80000</option> 
                                                 </select>
-                                                <input type="hidden" value="" id="first_choice2_value" name="first_choice2_value"/>
+                                              
                                             </div>    
                                         </div>
                                 </div>
@@ -93,7 +92,6 @@
                                                             <option  value="{{c}}">{{c}}</option>
                                                         {% endfor %}
                                                 </select>
-                                                <input type="hidden" value="" id="second_choice_value" name="second_choice_value"/>
                                             </div>   
                                         </div>
                                         
@@ -111,7 +109,6 @@
                                                             <option  value="{{o}}">{{o}}</option>
                                                         {% endfor %}
                                                     </select>
-                                                <input type="hidden" value="" id="third_choice_value" name="third_choice_value"/>
                                             </div>
                                         </div>
                                         
@@ -129,7 +126,6 @@
                                                             <option  value="{{s}}">{{s}}</option>
                                                         {% endfor %}
                                                     </select>
-                                                <input type="hidden" value="" id="fourth_choice_value" name="fourth_choice_value"/>
                                             </div>        
                                         </div>
                                         <div class="col-md-2" >
@@ -140,7 +136,6 @@
                                                             <option  value="{{s}}">{{s}}</option>
                                                         {% endfor %}
                                                     </select>
-                                                <input type="hidden" value="" id="fourth_choice2_value" name="fourth_choice2_value"/>
                                             </div>        
                                         </div>
                                 </div>
@@ -157,7 +152,6 @@
                                                             <option  value="{{p}}">{{p}}</option>
                                                         {% endfor %}
                                                     </select>
-                                                <input type="hidden" value="" id="fifth_choice_value" name="fifth_choice_value"/>
                                             </div>        
                                         </div>
                                         
@@ -175,7 +169,6 @@
                                                             <option  value="{{bcm}}">{{bcm}}</option>
                                                         {% endfor %}
                                                     </select>
-                                                <input type="hidden" value="" id="six_choice_value" name="six_choice_value"/>
                                             </div>        
                                         </div>
                                         
@@ -193,7 +186,6 @@
                                                             <option  value="{{b}}">{{b}}</option>
                                                         {% endfor %}
                                                     </select>
-                                                <input type="hidden" value="" id="seven_choice_value" name="seven_choice_value"/>
                                             </div>
                                         </div>
                                         
@@ -203,14 +195,21 @@
                         {%endfor%}
                         <div class="row">
                                 <div class="col-md-1" >
+                                        <input type="hidden" value="" id="first_choice_value" name="first_choice_value"/>
+                                        <input type="hidden" value="" id="first_choice2_value" name="first_choice2_value"/>
+                                        <input type="hidden" value="" id="second_choice_value" name="second_choice_value"/>
+                                        <input type="hidden" value="" id="third_choice_value" name="third_choice_value"/>
+                                        <input type="hidden" value="" id="fourth_choice_value" name="fourth_choice_value"/>
+                                        <input type="hidden" value="" id="fourth_choice2_value" name="fourth_choice2_value"/>
+                                        <input type="hidden" value="" id="fifth_choice_value" name="fifth_choice_value"/>
+                                        <input type="hidden" value="" id="six_choice_value" name="six_choice_value"/>
+                                        <input type="hidden" value="" id="seven_choice_value" name="seven_choice_value"/>
                                         <input type="submit" name="submit" value="look up" />               
                                 </div>     
                         </div>
                         
                   
                     </ul>
-                    
-                    
                 </form>
             </div>                 
                             

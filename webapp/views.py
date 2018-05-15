@@ -287,6 +287,12 @@ class filter(TemplateView):
             fifth_choice=request.POST['fifth_choice_value']
             six_choice=request.POST['six_choice_value']
             seven_choice=request.POST['seven_choice_value']
+
+
+
+
+
+            
             if(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice!="" and fourth_choice!="" and  fourth_choice2!=""
                 and fifth_choice!="" and six_choice!="" and seven_choice!="" ):
                 mobiles=samsung_phone.objects.filter(price__range=(int(first_choice),int(first_choice2)),OS=third_choice,Colors__icontains=second_choice,

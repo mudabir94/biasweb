@@ -271,7 +271,7 @@ class filter(TemplateView):
 
 
         return render(request,'webapp/filter_test.html',{'colors':colors,
-            'os':os,'size':size,'feat':feat,'cpu':cpu,'back_cm':back_cm,'battery':battery})
+            'os':os,'size':size,'feat':feat,'ft':ft,'cpu':cpu,'back_cm':back_cm,'battery':battery})
     
     def post(self,request):
         # print("ssss",(request.POST['first_choice_value']))

@@ -279,20 +279,70 @@ class filter(TemplateView):
         
         if request.method=="POST":
             first_choice = request.POST['first_choice_value']
+            print("fc",first_choice)
             first_choice2 = request.POST['first_choice2_value']
+            print("fc2",first_choice2)
             second_choice=request.POST['second_choice_value']
+            print("sc",second_choice)
             third_choice=request.POST['third_choice_value']
+            print("tc",third_choice)
             fourth_choice=request.POST['fourth_choice_value']
+            print("fc",fourth_choice)
             fourth_choice2=request.POST['fourth_choice2_value']
+            print("f2c",fourth_choice2)
             fifth_choice=request.POST['fifth_choice_value']
+            print("fc",fifth_choice)
             six_choice=request.POST['six_choice_value']
+            print("sixc",six_choice)
             seven_choice=request.POST['seven_choice_value']
+            print("sevc",seven_choice)
 
-
-
-
-
+            filter = {'Colors' : second_choice,
+                 'OS' : third_choice,
+                 'Size': {'1':fourth_choice,'2':fourth_choice2},
+                 'price':{'1':first_choice,'2':first_choice2},
+                 'Cpu'  : fifth_choice,
+                 'battery' : seven_choice}
+            print(filter)
+            query_array = []
+            temparray=[]
             
+            for key in filter:
+                if (filter[key] != ''):
+                    print("key",key)
+                    if(key == 'Size' ):
+                        temparray=[]
+                        for k in filter[key]:
+                            if (filter[key][k]!=''):
+                                print("in size",filter[key][k])
+                                temparray.append(filter[key][k])
+                        print(temparray)
+                        if  temparray:
+                            query_array.append(' '+key +' BETWEEN '+temparray[0]+ ' AND '+ temparray[1] +" " )
+                    elif(key == 'price'):
+                        temparray=[]
+                        for k in filter[key]:
+                            if (filter[key][k]!=''):
+                                print("in price",filter[key][k])
+                                temparray.append(filter[key][k])
+                        print(temparray)
+                        if  temparray:
+                            query_array.append(' '+key +' BETWEEN '+temparray[0]+ ' AND '+ temparray[1]+ " ")
+                    else:
+                        print("in key else")
+                        var=filter[key]
+                        query_array.append(' '+key +' LIKE '+"'"+'%%'+var+'%%'+"'")
+                else:
+                    query = 'SELECT * FROM webapp_samsung_phone'
+
+                    
+            query = 'SELECT * FROM webapp_samsung_phone WHERE '+ 'AND ' .join(query_array)
+            #query= '''SELECT * FROM webapp_samsung_phone where OS like'+"'"+'android v7.1.1 (nougat)'+"'''
+            print(query)
+            mobiles=samsung_phone.objects.raw(query)
+            print(mobiles)
+            
+            '''
             if(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice!="" and fourth_choice!="" and  fourth_choice2!=""
                 and fifth_choice!="" and six_choice!="" and seven_choice!="" ):
                 mobiles=samsung_phone.objects.filter(price__range=(int(first_choice),int(first_choice2)),OS=third_choice,Colors__icontains=second_choice,
@@ -370,7 +420,7 @@ class filter(TemplateView):
             else:
                 mobiles=samsung_phone.objects.all()
                 print("in else")
-            
+            '''
         return render(request,'webapp/filterpost.html',{'mobiles':mobiles})
 
 

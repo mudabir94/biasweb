@@ -90,7 +90,7 @@
                                         </div>
                                     <h4><a href="{% url 'mobileinfo' id=mob.id %}">{{mob.Mobile_Companny}}</a> <span class="text-uppercase margin-l-20">{{mob.Mobile_Name}}</span></h4>
                                     <h1><a href = "{% url 'mobileinfo' id=mob.id %}"> {{mob.price}} </a></h1>
-                                    <p>{{mob.OS}}</p>
+                                    <h4>{{mob.os}}</h4>
                                     <a class="link" href="{% url 'mobileinfo' id=mob.id %}">Read More</a>
                             </div>
                 {%  if forloop.counter|divisibleby:3 or forloop.last %}

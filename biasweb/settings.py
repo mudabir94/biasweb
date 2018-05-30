@@ -79,9 +79,11 @@ WSGI_APPLICATION = 'biasweb.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_biasweb',
+        'NAME': 'django_biasweb6',
         'USER':'root',
-        'PASSWORD':''
+        'PASSWORD':'Opensesame1',
+        'HOST': '127.0.0.1',
+        'PORT':'3306',
     }
 }
 

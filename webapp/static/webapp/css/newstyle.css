@@ -9,7 +9,6 @@ h2 {
     font-size: 30px;
 }
 
-
 p {
 
     font-size: 15px;
@@ -56,4 +55,8 @@ a:active, a:focus, a:hover {
 .link {
     font-size: 13px;
     font-weight: 600;
+}
+#username{
+    padding-top: 15px;
+    text-transform: uppercase;
 }

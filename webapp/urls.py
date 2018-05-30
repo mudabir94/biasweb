@@ -17,5 +17,7 @@ urlpatterns = [
     path('mobile_info/<int:id>',views.mobile_phone_view.one_mobile_func, name='mobileinfo'),
     url(r'^filter/',views.filter.as_view(), name='filter'),
     url(r'^showfilter/',views.showFilter.as_view(), name='showfilter'),
+    url(r'^cart/',views.cart, name='cart'),
+    url(r'^showmob/',views.showmob, name='sm'),
    
 ]

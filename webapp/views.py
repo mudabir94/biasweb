@@ -11,6 +11,45 @@ from django.db import connection
 from django.db.models import Q
 import json
 role=1
+mobiles=samsung_phone.objects.raw('SELECT * FROM webapp_samsung_phone WHERE id=1 or id=2')
+def showmob(request):
+    if request.method=="POST":
+        if request.is_ajax:
+        # print("ajax",request.POST.get('data'))
+            ####print("PST",request.POST.get('d')) 
+            d = request.POST.get('d')
+        ### print('JSONLOADS',eval(d))
+            b = json.loads(d)
+            print(b[0])
+            query_array=[]
+            count=1    
+            for key,value in  enumerate(b):
+                print("key",key)
+                print ("val", value)
+                query_array.append(' '+ 'id'+ '=' + value )
+            query = 'SELECT * FROM webapp_samsung_phone WHERE '+ ' or ' .join(query_array)
+            global mobiles
+            mobiles=samsung_phone.objects.raw(query)
+           
+            print(mobiles)
+           
+
+            dict = {'mobiles':'asdf'}
+    return HttpResponse(json.dumps(dict), content_type='application/json')
+    #return render_to_response(request,'webapp/showmob.html',{'mobiles':mobiles}) 
+    '''
+    query = 'SELECT * FROM webapp_samsung_phone WHERE id=1 or id=2'
+    mobiles=samsung_phone.objects.raw(query)
+    print(mobiles)
+    return render(request,'webapp/showmob.html',{'mobiles':mobiles})
+    '''
+    
+     
+def cart(request):
+    #query = 'SELECT * FROM webapp_samsung_phone WHERE id=1 or id=2 or id=3'
+    #mobiles=samsung_phone.objects.raw(query)
+    print(mobiles)
+    return render(request, 'webapp/cart.html',{'mobiles':mobiles})
 def ind(request):
    
     if request.is_ajax:
@@ -332,95 +371,22 @@ class filter(TemplateView):
                         print("in key else")
                         var=filter[key]
                         query_array.append(' '+key +' LIKE '+"'"+'%%'+var+'%%'+"'")
-                else:
-                    query = 'SELECT * FROM webapp_samsung_phone'
+                
+                   
 
-                    
-            query = 'SELECT * FROM webapp_samsung_phone WHERE '+ 'AND ' .join(query_array)
-            #query= '''SELECT * FROM webapp_samsung_phone where OS like'+"'"+'android v7.1.1 (nougat)'+"'''
-            print(query)
-            mobiles=samsung_phone.objects.raw(query)
-            print(mobiles)
-            
-            '''
-            if(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice!="" and fourth_choice!="" and  fourth_choice2!=""
-                and fifth_choice!="" and six_choice!="" and seven_choice!="" ):
-                mobiles=samsung_phone.objects.filter(price__range=(int(first_choice),int(first_choice2)),OS=third_choice,Colors__icontains=second_choice,
-                Size__range=(float(fourth_choice),float(fourth_choice2)),
-                Cpu__icontains=fifth_choice,back_camera__icontains=six_choice,battery__icontains=seven_choice)
-                print("in if condition")
-
-
-
-            elif (first_choice=="" and first_choice2=="" and second_choice=="" and third_choice=="" and fourth_choice!="" and fourth_choice2!="" 
-                and fifth_choice=="" and six_choice=="" and seven_choice==""):
-                 mobiles=samsung_phone.objects.filter(Size__range=(float(fourth_choice),float(fourth_choice2)))
-            elif (first_choice!="" and first_choice2!="" and second_choice=="" and third_choice=="" and fourth_choice=="" and fourth_choice2==""
-                and fifth_choice=="" and six_choice=="" and seven_choice==""):     
-                 mobiles=samsung_phone.objects.filter(price__range=(int(first_choice),int(first_choice2)))
-            elif (first_choice=="" and first_choice2=="" and second_choice!="" and third_choice=="" and fourth_choice=="" and fourth_choice2==""
-                and fifth_choice=="" and six_choice=="" and seven_choice==""):     
-                 mobiles=samsung_phone.objects.filter(Colors__icontains=second_choice)
-            elif (first_choice=="" and first_choice2=="" and second_choice=="" and third_choice!="" and fourth_choice=="" and fourth_choice2==""
-                and fifth_choice=="" and six_choice=="" and seven_choice==""):     
-                 mobiles=samsung_phone.objects.filter(OS=third_choice) 
-            elif (first_choice=="" and first_choice2=="" and second_choice=="" and third_choice=="" and fourth_choice=="" and fourth_choice2==""
-                and fifth_choice!="" and six_choice=="" and seven_choice==""):     
-                 mobiles=samsung_phone.objects.filter(Cpu__icontains=fifth_choice) 
-            elif (first_choice=="" and first_choice2=="" and second_choice=="" and third_choice=="" and fourth_choice=="" and fourth_choice2==""
-                and fifth_choice=="" and six_choice!="" and seven_choice==""):     
-                 mobiles=samsung_phone.objects.filter(back_camera__icontains=six_choice)
-            elif (first_choice=="" and first_choice2=="" and second_choice=="" and third_choice=="" and fourth_choice=="" and fourth_choice2==""
-                and fifth_choice=="" and six_choice=="" and seven_choice!=""):     
-                 mobiles=samsung_phone.objects.filter(battery__icontains=seven_choice)
-        
-            elif(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice!="" and fourth_choice=="" and fourth_choice2==""
-                and fifth_choice!="" and six_choice!="" and seven_choice!=""):
-                 mobiles=samsung_phone.objects.filter(price__range=(int(first_choice),int(first_choice2)),OS=third_choice,Colors__icontains=second_choice,
-                   Cpu__icontains=fifth_choice,back_camera__icontains=six_choice,battery__icontains=seven_choice)
-
-            elif(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice=="" and fourth_choice!="" and fourth_choice2!=""
-                and fifth_choice!="" and six_choice!="" and seven_choice!=""):  
-                 mobiles=samsung_phone.objects.filter(price__range=(int(first_choice),int(first_choice2)),Colors__icontains=second_choice,
-                 Size__range=(float(fourth_choice),float(fourth_choice2)), Cpu__icontains=fifth_choice,
-                 back_camera__icontains=six_choice,battery__icontains=seven_choice )
-
-            elif(first_choice!="" and first_choice2!="" and second_choice=="" and third_choice!="" and fourth_choice!="" and fourth_choice2!=""
-                 and fifth_choice!="" and six_choice!="" and seven_choice!=""):  
-                 mobiles=samsung_phone.objects.filter(price__range=(int(first_choice),int(first_choice2)),OS=third_choice,Size__range=(float(fourth_choice),
-                 float(fourth_choice2)), Cpu__icontains=fifth_choice,back_camera__icontains=six_choice,battery__icontains=seven_choice)
-
-
-                 
-            elif(first_choice=="" and first_choice2=="" and second_choice!="" and third_choice!="" and fourth_choice!="" and fourth_choice2!=""
-                 and fifth_choice!="" and six_choice!="" and seven_choice!=""):  
-                 mobiles=samsung_phone.objects.filter(Colors__icontains=second_choice,OS=third_choice,Size__range=(float(fourth_choice),float(fourth_choice2)),
-                 Cpu__icontains=fifth_choice,back_camera__icontains=six_choice,battery__icontains=seven_choice)
-                  
-            elif(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice!="" and fourth_choice!="" and fourth_choice2!=""
-                 and fifth_choice=="" and six_choice!="" and seven_choice!=""):  
-                 mobiles=samsung_phone.objects.filter(Colors__icontains=second_choice,OS=third_choice,Size__range=(float(fourth_choice),float(fourth_choice2)),
-                 back_camera__icontains=six_choice,battery__icontains=seven_choice)
-                  
-            elif(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice!="" and fourth_choice!="" and fourth_choice2!=""
-                 and fifth_choice!="" and six_choice=="" and seven_choice!=""):  
-                 mobiles=samsung_phone.objects.filter(Colors__icontains=second_choice,OS=third_choice,Size__range=(float(fourth_choice),float(fourth_choice2)),
-                 Cpu__icontains=fifth_choice,battery__icontains=seven_choice)
-
-                  
-            elif(first_choice!="" and first_choice2!="" and second_choice!="" and third_choice!="" and fourth_choice!="" and fourth_choice2!=""
-                 and fifth_choice!="" and six_choice!="" and seven_choice==""):  
-                 mobiles=samsung_phone.objects.filter(Colors__icontains=second_choice,OS=third_choice,Size__range=(float(fourth_choice),float(fourth_choice2)),
-                 Cpu__icontains=fifth_choice,back_camera__icontains=six_choice)
-
-
-
-
-
+            if len(query_array) != 0:
+                query = 'SELECT * FROM webapp_samsung_phone WHERE '+ 'AND ' .join(query_array)
+                #query= '''SELECT * FROM webapp_samsung_phone where OS like'+"'"+'android v7.1.1 (nougat)'+"'''
+                print(query)
+                mobiles=samsung_phone.objects.raw(query)
+                print(mobiles)
             else:
-                mobiles=samsung_phone.objects.all()
-                print("in else")
-            '''
+                query = 'SELECT * FROM webapp_samsung_phone '
+                mobiles=samsung_phone.objects.raw(query)
+                print(mobiles)
+            
+          
+            
         return render(request,'webapp/filterpost.html',{'mobiles':mobiles})
 
 

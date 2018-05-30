@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Mobile Analytics</title>
+	<meta charset="utf-8" >
+	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
+	{% load staticfiles %}
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'webapp/css/reset.css' %}"  type="text/css"/> <!-- CSS reset -->
+	<link rel="stylesheet" href="{% static 'webapp/css/style1.css' %}"  type="text/css"/> <!-- Resource style -->
+	<script src="{% static 'webapp/js/modernizr.js' %}"></script> <!-- Modernizr -->
+</head>
+<body class="body" style="background-color:#f6f6f6">
+	
+<section class="cd-intro">
+		<h1>Products Comparison Table</h1>
+</section> <!-- .cd-intro -->
+	
+	<section class="cd-products-comparison-table">
+		<header>
+			<h2>Compare Models</h2>
+
+			<div class="actions">
+				<a href="#0" class="reset">Reset</a>
+				<a href="#0" class="filter">Filter</a>
+			</div>
+		</header>
+
+		<div class="cd-products-table">
+			<div class="features">
+				<div class="top-info">Models</div>
+				<ul class="cd-features-list">
+				
+					<li>Price</li>
+					<li>Resolution</li>
+					<li>Display Size</li>
+					<li>Color</li>
+					<li>OS</li>
+					<li>Cpu</li>
+					
+				</ul>
+			</div> <!-- .features -->
+			
+			<div class="cd-products-wrapper">
+				
+				<ul class="cd-products-columns">
+				{%for m in mobiles%}
+					<li class="product">
+						<div class="top-info">
+							<div class="check"></div>
+							<img src="{%static 'webapp/img/product.png'%}" alt="product image">
+							<h3>{{m.Mobile_Name}}</h3>
+						</div> <!-- .top-info -->
+
+						<ul class="cd-features-list">
+							<li>{{m.price}}</li>
+							
+							<li>{{m.Resolution}}</li>
+							
+							<li>{{m.Size}}</li>
+							<li>{{m.Colors}}</li>
+							<li>{{m.OS}}</li>
+							<li>{{m.Cpu}}</li>
+							
+						</ul>
+					</li> <!-- .product -->
+
+			
+					{% endfor %}
+				</ul> <!-- .cd-products-columns -->
+				
+			</div> <!-- .cd-products-wrapper -->
+		
+			
+			<ul class="cd-table-navigation">
+				<li><a href="#0" class="prev inactive">Prev</a></li>
+				<li><a href="#0" class="next">Next</a></li>
+			</ul>
+		</div> <!-- .cd-products-table -->
+	</section> <!-- .cd-products-comparison-table -->
+
+<script src="{%static 'webapp/js/jquery-2.1.4.js'%}"></script>
+<script src="{%static 'webapp/js/main.js'%}"></script> <!-- Resource jQuery -->
+
+
+
+</body>
+<footer>
+		
+		<div class="container-fluid" style='margin-left:15px'>
+			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn1</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
+		</div>
+</footer>	
+
+</html>

@@ -3,6 +3,8 @@
 Primary style
 
 -------------------------------- */
+
+
 *, *::after, *::before {
   box-sizing: border-box;
 }
@@ -251,6 +253,7 @@ Main Components
   /* fixed left column - items */
   font-size: 1.2rem;
   font-weight: bold;
+  
   /* set line-height value equal to font-size of text inside product cells */
   line-height: 14px;
   padding: 25px 10px;
@@ -269,6 +272,7 @@ Main Components
 .features .cd-features-list li {
   /* truncate text with dots */
   white-space: nowrap;
+  height: 87px;
   text-overflow: ellipsis;
   overflow: hidden;
 }

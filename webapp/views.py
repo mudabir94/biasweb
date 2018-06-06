@@ -12,6 +12,27 @@ from django.db.models import Q
 import json
 role=1
 mobiles=samsung_phone.objects.raw('SELECT * FROM webapp_samsung_phone WHERE id=1 or id=2')
+def showScore(request):
+    if request.method=="POST":
+        if request.is_ajax:
+            d = request.POST.get('d')
+            b = json.loads(d)
+             
+            print(b)
+            dic=b[0]
+            for k in dic:
+                print(dic[k]) # values of the a model
+                
+
+        #Get all values of each index of the dictionary then store the info into the table. 
+        # Fetch info for the current user. Get the info and make calculations and generate a score.
+        # Send all the score  through ajax to the page. 
+            
+            print("jk",request.user.id)
+            print("jk",request.user.username)
+            dict = {'mobiles':'asdf'}
+    return HttpResponse(json.dumps(dict), content_type='application/json')
+
 def showmob(request):
     if request.method=="POST":
         if request.is_ajax:

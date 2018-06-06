@@ -19,5 +19,8 @@ urlpatterns = [
     url(r'^showfilter/',views.showFilter.as_view(), name='showfilter'),
     url(r'^cart/',views.cart, name='cart'),
     url(r'^showmob/',views.showmob, name='sm'),
+    url(r'^showScore/',views.showScore, name='showscore'),
+
+
    
 ]

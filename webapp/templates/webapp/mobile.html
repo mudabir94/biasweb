@@ -69,29 +69,31 @@
                         
                     </ul>
           </div>
-        <div class="col-sm-9 text-left" > 
+        <div class="col-sm-9  col-md-9 col-lg-9 col-xs-9 text-left" > 
               
-            <div class="container latest-product-section"> 
+            <div class="latest-product-section"> 
                     {%  for mob in mobiles  %}
    
                     {% if forloop.counter0|divisibleby:3 %} 
                     <div class="row text-center"> {%  endif %}
                            
-                            <div class="col-md-4 sm-margin-b-50 pull-left">
+                            <div class="col-md-4 col-lg-4 col-xs-12 sm-margin-b-50 pull-left">
                                     <div class="margin-b-20" >
                                     <h4>Compare</h4>
                                     <input type="checkbox" value={{mob.id}} id={{mob.id}} name={{mob.id}}-{{mob.Mobile_Name}}  onchange="toggleCheckbox(this)"> 
-                                    <img class="img-responsive" src="{% static mob.imagepath1 %}" alt="Latest Products Image" />
+                                  <img class="img-responsive" src="{% static mob.imagepath1 %}"  alt="Latest Products Image"  title=""/>
                                         </div>
-                                    <h4><a href="{% url 'mobileinfo' id=mob.id %}">{{mob.Mobile_Companny}}</a> <span class="text-uppercase margin-l-20">{{mob.Mobile_Name}}</span></h4>
+                                <h4> <span class="text-uppercase margin-l-20">{{mob.Mobile_Name}}</span></h4>
+
+                                    <!--<h4><a href="{% url 'mobileinfo' id=mob.id %}">{{mob.Mobile_Companny}}</a> <span class="text-uppercase margin-l-20">{{mob.Mobile_Name}}</span></h4>
                                     <h4><a href = "{% url 'mobileinfo' id=mob.id %}"> Price </a><span class="text-uppercase margin-l-20">{{mob.price}}</span></h4>
                                     <h4>{{mob.os}}</h4>
                                     <h4><a href = "{% url 'mobileinfo' id=mob.id %}"> Size </a><span class="text-uppercase margin-l-20">{{mob.Size}}-Inch</span></h4>
                                     <h4><a href = "{% url 'mobileinfo' id=mob.id %}"> Color </a><span class="text-uppercase margin-l-20">{{mob.Colors}}</span></h4>
                                     <h4><a href = "{% url 'mobileinfo' id=mob.id %}"> Cpu </a><span class="text-uppercase margin-l-20">{{mob.Cpu}}</span></h4>
-                                    <h4><a href = "{% url 'mobileinfo' id=mob.id %}"> OS </a><span class="text-uppercase margin-l-20">{{mob.OS}}</span></h4>
-        
-                                    <a class="link" href="{% url 'mobileinfo' id=mob.id %}">Read More</a>
+                                                                        <h4><a href = "{% url 'mobileinfo' id=mob.id %}"> OS </a><span class="text-uppercase margin-l-20">{{mob.OS}}</span></h4>
+                                    -->
+                                    <a class="link btn btn-success" href="{% url 'mobileinfo' id=mob.id %}">Read More</a>
                                    
                             </div>
                 {%  if forloop.counter|divisibleby:3 or forloop.last %}
@@ -100,29 +102,13 @@
                 {%  endfor %}
                
                 
-                    <div class="pagination" >
-                    <span class="step-links">
-                        {% if mobiles.has_previous %}
-                            <a href="?page=1">&laquo; first</a>
-                            <a href="?page={{ mobiles.previous_page_number }}">previous</a>
-                        {% endif %}
-                        
-                        <span class="current">
-                            Page {{ mobiles.number }} of {{ mobiles.paginator.num_pages }}.
-                        </span>
-                    
-                        {% if mobiles.has_next %}
-                            <a href="?page={{ mobiles.next_page_number }}">next</a>
-                            <a href="?page={{ mobiles.paginator.num_pages }}">last &raquo;</a>
-                        {% endif %}
-                    </span>
-                </div>
+                  
             </div>                 
                             
                
           </div>
           <div class="col-sm-1 sidenav">
-            <div class="well"   id="lc">
+            <div class=""   id="lc">
                   
             </div>
           </div>
@@ -130,7 +116,24 @@
       </div>
       
       <footer class="container-fluid text-center">
-        <p>Footer Text</p>
+      
+        <div class="pagination" >
+                <span class="step-links">
+                    {% if mobiles.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ mobiles.previous_page_number }}">previous</a>
+                    {% endif %}
+                    
+                    <span class="current">
+                        Page {{ mobiles.number }} of {{ mobiles.paginator.num_pages }}.
+                    </span>
+                
+                    {% if mobiles.has_next %}
+                        <a href="?page={{ mobiles.next_page_number }}">next</a>
+                        <a href="?page={{ mobiles.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
       </footer>
 
     <script>
@@ -196,7 +199,11 @@
                         var t = document.createTextNode("Compare");  
                         btn.appendChild(t);
                         btn.onclick=myfunc;
-                        document.getElementById('lc').appendChild(btn);               
+                        document.getElementById('lc').appendChild(btn);     
+                        $('#l').addClass('btn'); 
+                        $('#l').addClass('btn-success');   
+                        $('#l').addClass('btn-success-edit');        
+                        
                     }
                 }
                 else if (arr.length <=1 ){

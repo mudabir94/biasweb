@@ -15,7 +15,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static 'webapp/js/jquery-ui.js' %}" charset="utf-8" ></script>
 	<script type="text/javascript" src="{% static 'webapp/js/jquery.js' %}" charset="utf-8" ></script>
-  <link rel="stylesheet" href="{% static 'webapp/css/jquery-ui.css' %}" type="text/css" />
+    <link rel="stylesheet" href="{% static 'webapp/css/jquery-ui.css' %}" type="text/css" />
 	<link rel="stylesheet" href="{% static 'webapp/css/jquery-ui.structure.css' %}" type="text/css" />
 	<link rel="stylesheet" href="{% static 'webapp/css/jquery-ui.theme.css' %}" type="text/css" />
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -55,6 +55,9 @@
 			color: white;
 			padding: 15px;
 		}
+		.navbar{
+					margin-bottom: 0 !important;
+					}
 		
 		/* On small screens, set height to 'auto' for sidenav and grid */
 		@media screen and (max-width: 767px) {
@@ -64,21 +67,15 @@
 			}
 			.row.content {height: auto;} 
 		}
-		html,
-		body {
-		height:100%
-						}
+		 
 
 		</style>
 
-
-<style type="text/css">
-
-</style>
+ 
 
 </head>
 
-<body class="body" style="background-color:#f6f6f6">
+<body class="body" style="">
 	
     {% block content %}
 	{% endblock %}	

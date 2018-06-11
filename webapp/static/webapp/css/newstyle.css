@@ -8,14 +8,12 @@ body {
 h2 {
     font-size: 30px;
 }
-
 p {
 
     font-size: 15px;
     font-weight: 400;
     color: #a6a7aa;
     margin-bottom: 15px;
-
 }
 h1, h2, h3, h4, h5, h6 {
     font-weight: 700;

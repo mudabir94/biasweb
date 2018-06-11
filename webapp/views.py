@@ -10,8 +10,8 @@ from django.shortcuts import render, redirect
 from django.db import connection
 from django.db.models import Q
 import json
-role=1
-mobiles=samsung_phone.objects.raw('SELECT * FROM webapp_samsung_phone WHERE id=1 or id=2')
+role=1   #global variable used in adminsetup and globalFunc function. 
+mobiles=samsung_phone.objects.raw('SELECT * FROM webapp_samsung_phone WHERE id=1 or id=2') # making mobiles object global.
 def showScore(request):
     if request.method=="POST":
         if request.is_ajax:
@@ -30,10 +30,10 @@ def showScore(request):
             
             print("jk",request.user.id)
             print("jk",request.user.username)
-            dict = {'mobiles':'asdf'}
+            dict = {'mobiles':'mobile info'}
     return HttpResponse(json.dumps(dict), content_type='application/json')
 
-def showmob(request):
+def showMob(request):
     if request.method=="POST":
         if request.is_ajax:
         # print("ajax",request.POST.get('data'))
@@ -186,7 +186,7 @@ def globalFunc(request):
         
     
 
-def admin_setup(request):
+def adminSetup(request):
     global  role
     
     feat=sort_feature.objects.filter(~Q(sh_hd = 0),roles=role).order_by('position')
@@ -231,7 +231,7 @@ def admin_setup(request):
    
 
 # Create your views here.
-def signup(request):
+def signUp(request):
      #m = request.session['username']
      #print(m)
      num_visits=request.session.get('num_visits', 0)
@@ -408,7 +408,7 @@ class filter(TemplateView):
             
           
             
-        return render(request,'webapp/filterpost.html',{'mobiles':mobiles})
+        return render(request,'webapp/mobile.html',{'mobiles':mobiles})
 
 
 class blogview (TemplateView):
@@ -449,7 +449,7 @@ class mobile_phone_view(TemplateView):
         #form=mobile_phone_form(request.POST)
 
         mobiles= samsung_phone.objects.all()
-        paginator = Paginator(mobiles,6)
+        paginator = Paginator(mobiles,9)
         page = request.GET.get('page')
         mobiles = paginator.get_page(page)
         print(mobiles)

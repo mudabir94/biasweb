@@ -48,7 +48,7 @@ Main Components
 
 -------------------------------- */
 .cd-products-comparison-table {
-  margin-bottom: 6em;
+  /* margin-bottom: 6em; */
 }
 .cd-products-comparison-table::after {
   /* never visible - this is used in jQuery to check the current MQ */
@@ -69,6 +69,7 @@ Main Components
 }
 .cd-products-comparison-table .actions {
   float: right;
+  /* margin-top: 21px; */
 }
 .cd-products-comparison-table .reset, .cd-products-comparison-table .filter {
   font-size: 1.4rem;
@@ -95,9 +96,10 @@ Main Components
 .no-touch .cd-products-comparison-table .filter.active:hover {
   background-color: #a7cea1;
 }
+
 @media only screen and (min-width: 1170px) {
   .cd-products-comparison-table {
-    margin-bottom: 8em;
+    /* margin-bottom: 8em; */
   }
   .cd-products-comparison-table::after {
     /* never visible - this is used in jQuery to check the current MQ */
@@ -319,6 +321,11 @@ Main Components
   -webkit-transition: -webkit-transform 0.3s;
   -moz-transition: -moz-transform 0.3s;
   transition: transform 0.3s;
+  width: 115px;
+    height: 150px;
+    /* padding-left: 0px; */
+    margin-left: 60px;
+  
 }
 .cd-products-table .top-info .check {
   position: relative;
@@ -582,3 +589,18 @@ No JS
 .no-js .cd-products-columns .check {
   display: none;
 }
+
+.showScorebtn {
+  /* margin-left: 85px !important;  */
+  /* margin-top: -2px; */
+  border-radius: 10px;
+  font-size: larger;
+  background-color: #4CAF50;
+  padding: 9px;
+  color: white;
+  /* transition: background-color 0.3s; */
+  border-style: solid;}
+  .mt12
+  {
+    margin-top: 12px;
+  }

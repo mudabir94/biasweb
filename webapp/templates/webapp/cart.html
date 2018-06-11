@@ -6,7 +6,9 @@
 	<meta charset="utf-8" >
 	<meta name="viewport" content = "width=device-width, initial-scale=1.0">
 	{% load staticfiles %}
-    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="{% static 'webapp/css/bootstrap.min.css' %}" type = "text/css"/>
+	<link rel="stylesheet" href="{% static 'webapp/css/newstyle.css' %}" type="text/css" />
+	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="{% static 'webapp/css/reset.css' %}"  type="text/css"/> <!-- CSS reset -->
 	<link rel="stylesheet" href="{% static 'webapp/css/style1.css' %}"  type="text/css"/> <!-- Resource style -->
 	<script src="{% static 'webapp/js/modernizr.js' %}"></script> <!-- Modernizr -->
@@ -14,17 +16,63 @@
 <body class="body" style="background-color:#f6f6f6">
 	
 <section class="cd-intro">
-		<h1>Products Comparison Table</h1>
+		<nav class="navbar navbar-inverse">
+				<div class="container-fluid">
+				  <div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>
+					  <span class="icon-bar"></span>                        
+					</button>
+					<a class="navbar-brand" href="#">Mobile Analytics</a>
+				  </div>
+				  <div class="collapse navbar-collapse" id="myNavbar">
+					<ul class="nav navbar-nav">
+					 
+					  <li><a href="{%url 'mobileview'%}">Home</a></li>
+					  <li><a href="#" >About</a></li>
+					  {% if  user.is_authenticated %}
+					  <li><p id="username">{{ user.get_username }}</p></li>
+					  <li><a href="{% url 'logout'%}">Logout</a></li>   
+					  {% else %}
+					  <li><a href="{% url 'login'%}?next={{request.path}}">Login</a></li>   
+					  {% endif %}  
+					</ul>
+					<!--<ul class="nav navbar-nav navbar-right">
+					  <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+					</ul>-->
+				  </div>
+				</div>
+			  </nav>
+				
+		
+		
 </section> <!-- .cd-intro -->
-	
+
+<div class="div-products-comparison-table container">
 	<section class="cd-products-comparison-table">
 		<header>
-			<h2>Compare Models</h2>
-
-			<div class="actions">
-				<a href="#0" class="reset">Reset</a>
-				<a href="#0" class="filter">Filter</a>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-6">
+				<h2>Compare Models</h2>
 			</div>
+			 
+			<div class="col-sm-2" >
+					
+					<button class="btn btn-success" onclick="showScore(this)" >Show Score </button>
+			</div>
+			 
+			<div class="col-sm-4 " >
+				<div class="actions">
+					<a href="#0" class="reset">Reset</a>
+					<a href="#0" class="filter">Filter</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
 		</header>
 
 		<div class="cd-products-table">
@@ -50,8 +98,8 @@
 					<li class="product" id="{{forloop.counter}}">
 						<div class="top-info">
 							<div class="check"></div>
-							<img src="{%static 'webapp/img/product.png'%}" alt="product image">
-							<h3>Score:<span id=score-{{forloop.counter}}></span></h3>
+							<img src="{% static m.imagepath1 %}" alt="product image">
+							<!--<h3>Score:<span id=score-{{forloop.counter}}></span></h3>-->
 							
 
 						</div> <!-- .top-info -->
@@ -111,8 +159,9 @@
 			</ul>
 		</div> <!-- .cd-products-table -->
 	</section> <!-- .cd-products-comparison-table-->
-<button onclick="showScore(this)">koooo</button>
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+</div>
+
+
 
 
 <script src="{%static 'webapp/js/jquery-2.1.4.js'%}"></script>
@@ -276,7 +325,7 @@ function showScore(){
 				sum1=sum1+div;
 			}
 			modelcol1=[];
-			document.getElementById("score-1").innerHTML=sum1;
+		//	document.getElementById("score-1").innerHTML=sum1;
 			console.log("sum1",sum1);
 			
 			
@@ -290,7 +339,7 @@ function showScore(){
 			
 		}
 		modelcol2=[];
-		document.getElementById("score-2").innerHTML=sum2;
+		//document.getElementById("score-2").innerHTML=sum2;
 		console.log("sum2",sum2);
 		
 	
@@ -304,7 +353,7 @@ function showScore(){
 			
 		}
 		modelcol3=[];
-		document.getElementById("score-3").innerHTML=sum3;
+		//document.getElementById("score-3").innerHTML=sum3;
 		console.log("sum3",sum3);
 		
 		}
@@ -403,11 +452,10 @@ $(document).ready(function () {
 });
 </script>
 </body>
-
+<div id="container" style="min-width: 210px; height: 200px; margin: 0 auto"></div>
 <footer>
-		<div class="container-fluid" style='margin-left:15px'>
+		<div class="container-fluid text-center" style='margin-left:15px'>
 			<p><a href="#" target="blank">Contact</a> | <a href="#" target="blank">LinkedIn1</a> | <a href="#" target="blank">Twitter</a> | <a href="#" target="blank">Google+</a></p>
 		</div>
 </footer>	
-
 </html>

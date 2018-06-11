@@ -171,8 +171,16 @@ button.social-signin.google {
  }
  .margin-b-20 >img
  {
-   width: 291px;
-   height: 300px;
+   width: 125px;
+   height: 150px;
    display: block;
    margin: 0 auto;
  }
+ .latest-product-section
+{
+  background-color:white;
+}
+.btn-success-edit
+{
+  margin-top: 10px;
+}

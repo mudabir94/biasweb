@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webapp',
     'crispy_forms',
+    
     'jquery_ui',
 ]
 
@@ -55,6 +56,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'biasweb.urls'
 
 TEMPLATES = [
+    
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
          'DIRS': ['./templates',],
@@ -68,6 +70,7 @@ TEMPLATES = [
             ],
         },
     },
+    
 ]
 
 WSGI_APPLICATION = 'biasweb.wsgi.application'

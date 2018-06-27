@@ -12,6 +12,7 @@ from django.db.models import Q
 import json
 role=1   #global variable used in adminsetup and globalFunc function. 
 mobiles=samsung_phone.objects.raw('SELECT * FROM webapp_samsung_phone WHERE id=1 or id=2') # making mobiles object global.
+sizeofmob=0 # global variable assigned in filter class.
 def showScore(request):
     if request.method=="POST":
         if request.is_ajax:
@@ -70,7 +71,8 @@ def cart(request):
     #query = 'SELECT * FROM webapp_samsung_phone WHERE id=1 or id=2 or id=3'
     #mobiles=samsung_phone.objects.raw(query)
     print(mobiles)
-    return render(request, 'webapp/cart.html',{'mobiles':mobiles})
+    
+    return render(request, 'webapp/cart.html',{'mobiles':mobiles,'s':sizeofmob})
 def ind(request):
    
     if request.is_ajax:
@@ -336,6 +338,7 @@ class filter(TemplateView):
     def post(self,request):
         # print("ssss",(request.POST['first_choice_value']))
         # print("ssss",form.cleaned_data['first_choice_value'])
+        global sizeofmob
         
         if request.method=="POST":
             first_choice = request.POST['first_choice_value']
@@ -394,17 +397,22 @@ class filter(TemplateView):
                         query_array.append(' '+key +' LIKE '+"'"+'%%'+var+'%%'+"'")
                 
                    
-
+            
             if len(query_array) != 0:
                 query = 'SELECT * FROM webapp_samsung_phone WHERE '+ 'AND ' .join(query_array)
                 #query= '''SELECT * FROM webapp_samsung_phone where OS like'+"'"+'android v7.1.1 (nougat)'+"'''
                 print(query)
                 mobiles=samsung_phone.objects.raw(query)
-                print(mobiles)
+                
+                sizeofmob=len(list(mobiles))
+                print(sizeofmob)
+                
             else:
                 query = 'SELECT * FROM webapp_samsung_phone '
                 mobiles=samsung_phone.objects.raw(query)
-                print(mobiles)
+                sizeofmob=len(list(mobiles))
+                print(sizeofmob)
+            print("ssssa",sizeofmob)
             
           
             

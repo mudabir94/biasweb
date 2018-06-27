@@ -16,7 +16,8 @@
     
                 <!-- Precios -->
                 <h6 class="title-price">Price in Rupees</h6>
-                <h3 style="margin-top:0px;">Rs:{{m.price}}</h3>
+                <h3 style="margin-top:0px;" id="ph"></h3>
+                <input type="hidden" id="price-text" value="{{m.price}}" />
     
                 <!-- Detalles especificos del producto -->
                 <div class="section">
@@ -102,7 +103,9 @@
         </div>
     </div>        
 <script>  
-  var a=  $("#ulparaId li.active");
+
+var a=  $("#ulparaId li.active");
+
   
     function desFunc(des){
          a=  $("#ulparaId li.active");
@@ -117,11 +120,10 @@
             document.getElementById("paragraphId").innerHTML=des;
         }
     }
-
-      $(document).ready(function () {
-        
     
-        
+      var n=parseInt(document.getElementById('price-text').value);
+      $(document).ready(function () {
+        ph.innerHTML=n.toLocaleString('en-IN');
       });
 </script>   
 

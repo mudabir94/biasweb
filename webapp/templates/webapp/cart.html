@@ -80,6 +80,7 @@
 		<div class="cd-products-table">
 			<div class="features">
 				<div class="top-info">Models</div>
+				<input type="hidden" id="mobsize" value="{{s}}" />
 				<ul class="cd-features-list">
 				
 					<li>Price {{s}}</li>
@@ -107,7 +108,8 @@
 						</div> <!-- .top-info -->
 						<ul class="cd-features-list">
 						    <li id="price-{{m.id}}">
-							<div id="price-{{ forloop.counter }}">{{m.price}}</div>
+							<div id="price{{ forloop.counter }}"><p id="pricepara{{forloop.counter}}"></p> </div>
+							<input type="hidden" id="priceinput-{{ forloop.counter }}" value="{{m.price}}" />
 							
 							<div class="slidecontainer">
 								<input type="range" id="price-{{ forloop.counter }}" min="1" max="10" step="1"  oninput="showVal(this)">
@@ -194,9 +196,20 @@ var featprior="";
 var sum1=0;
 var sum2=0;
 var sum3=0;
+var num=parseInt(document.getElementById('mobsize').value);
 
 $(document).ready(function () {
-	
+	var num =parseInt(document.getElementById('mobsize').value);
+    var p="pricepara";
+
+	for (var i=1;i<=num;i++){
+		//console.log(i);
+
+		var priceinput=parseInt(document.getElementById('priceinput-'+i).value);
+		document.getElementById(p+i).innerHTML=priceinput.toLocaleString('en-IN');
+		console.log(p+i,priceinput.toLocaleString('en-IN'));
+		
+	}
 	$('#highchart').append("<div id='container'style='min-width: 210px; height: 240px; margin: 0 auto'></div>");
 	highchartShow();
 });

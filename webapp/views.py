@@ -51,12 +51,14 @@ def showMob(request):
                 query_array.append(' '+ 'id'+ '=' + value )
             query = 'SELECT * FROM webapp_samsung_phone WHERE '+ ' or ' .join(query_array)
             global mobiles
+            global sizeofmob
             mobiles=samsung_phone.objects.raw(query)
-           
+            som=len(list(mobiles))
+            sizeofmob=som
             print(mobiles)
-           
+            print("som",som)
 
-            dict = {'mobiles':'asdf'}
+            dict = {'som':som}
     return HttpResponse(json.dumps(dict), content_type='application/json')
     #return render_to_response(request,'webapp/showmob.html',{'mobiles':mobiles}) 
     '''

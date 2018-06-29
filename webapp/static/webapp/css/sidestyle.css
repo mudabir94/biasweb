@@ -65,9 +65,10 @@
 }
 
 .sidebar-nav li a {
-    display: block;
+     
     text-decoration: none;
     color: #999999;
+    padding: 6px 10px;
 }
 
 .sidebar-nav li a:hover {
@@ -77,8 +78,8 @@
     color: #fff;
     background-color: #5cb85c;
     border-color: #4cae4c;  
-    display: inline-block;
-    padding: 6px 12px;
+    /* display: inline-block; */
+   
     margin-bottom: 0;
     font-size: 14px;
     font-weight: 400;
@@ -114,8 +115,9 @@
 }
 
 .sidebar-nav > .sidebar-brand a:hover {
-    color: #fff;
+    color:black;
     background: none;
+    font-size: inherit;
 }
 
 @media(min-width:768px) {

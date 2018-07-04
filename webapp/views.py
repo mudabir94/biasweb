@@ -23,8 +23,6 @@ def showScore(request):
             dic=b[0]
             for k in dic:
                 print(dic[k]) # values of the a model
-                
-
         #Get all values of each index of the dictionary then store the info into the table. 
         # Fetch info for the current user. Get the info and make calculations and generate a score.
         # Send all the score  through ajax to the page. 
